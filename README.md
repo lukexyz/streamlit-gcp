@@ -14,14 +14,15 @@ $ gcloud app deploy app.yaml
 # choose location and proceed
 ```
 
-To view your application in the web browser run:
+3. To view your application url
  ```sh
  $ gcloud app browse
  ```
+* Or look for the url at the top-right of the `app engine` dashboard
+
 
 # Contents
 
-___
 
 ### Dockerfile
 
