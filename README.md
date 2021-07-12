@@ -34,3 +34,16 @@ $ gcloud app deploy app.yaml
 
 
 ### app.py
+
+
+# Google OAuth
+Go to the Google API Console OAuth consent screen page.
+Choose Internal so only users within your organization can access the app.
+Fill in the necessary information.
+Click Add Scopes and add any necessary scopes you require. For this example, we don’t need any.
+
+
+
+#### Acknowledgements
+* Duc Anh Bui, Implementing Google OAuth in Streamlit
+  - https://towardsdatascience.com/implementing-google-oauth-in-streamlit-bb7c3be0082c
