@@ -37,17 +37,17 @@ $ gcloud app deploy app.yaml
 
 
 # Google OAuth
-Go to the Google API Console OAuth consent screen page.
-Choose Internal so only users within your organization can access the app.
-Fill in the necessary information.
-Click Add Scopes and add any necessary scopes you require. For this example, we don’t need any.
+Go to the Google API Console OAuth consent screen page.  
+Choose Internal so only users within your organization can access the app.  
+Fill in the necessary information.  
+Click Add Scopes and add any necessary scopes (permissions) you require. For this example, we don’t need any.  
 
-Next, we need to create an authorization credential from GCP:
-Go to the Credentials page in GCP Console
-Click on Create Credentials > OAuth client ID.
-Select Web Application for Application type and fill in the name for your client.
-Fill in redirect URIs for your application. These are the links you want the users to be redirected back to after logging in. For example, in local environment, you can use http://localhost:8501
-Note down the Client ID and Client Secret for later.
+Next, we need to create an authorization credential from GCP:  
+Go to the Credentials page in GCP Console  
+Click on Create Credentials > OAuth client ID.  
+Select Web Application for Application type and fill in the name for your client.  
+Fill in redirect URIs for your application. These are the links you want the users to be redirected back to after logging in. For example, in local environment, you can use http://localhost:8501  
+Note down the Client ID and Client Secret for later.  
 
 
 #### Acknowledgements
