@@ -1,4 +1,5 @@
 streamlit==0.81.1
 httpx-oauth==0.3.5
+google-cloud-secret-manager
 altair
 pandas
