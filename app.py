@@ -44,6 +44,7 @@ def main(user_id, user_email):
 
         # Altair showcase
         with st.echo(code_location='below'):
+            # Secret Algorithm
             total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
             num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
             Point = namedtuple('Point', 'x y')
@@ -60,28 +61,18 @@ def main(user_id, user_email):
                 .mark_circle(color='#0068c9', opacity=0.5)
                 .encode(x='x:Q', y='y:Q'))
 
-            # Aarons refactor
-            Point = namedtuple('Point', 'x y')
-            data = [None] * total_points
-            points_per_turn = total_points / num_turns
-            baseAngle = 2 * math.pi / points_per_turn
-            baseRadius = 1 / total_points
-            for curr_point_num in range(total_points):
-                angle = curr_point_num * baseAngle
-                radius = curr_point_num * baseRadius
-                x = radius * math.cos(angle)
-                y = radius * math.sin(angle)
-                data[curr_point_num] = Point(x, y)
-            st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-                .mark_circle(color='#0068c9', opacity=0.5)
-                .encode(x='x:Q', y='y:Q'))
-
     else:
         st.error('Login Rejected')
         st.text(f'No secrets for you, {user_email}.')
 
 
 if __name__ == '__main__':
+    st.set_page_config(
+    page_title="Internal App",       # String or None. Strings get appended with "• Streamlit". 
+    page_icon="🦄",                # String, anything supported by st.image, or None.
+    layout="centered",             # Can be "centered" or "wide". In the future also "dashboard", etc.
+    initial_sidebar_state="auto")  # Can be "auto", "expanded", "collapsed"
+
     # client_id = os.environ['GOOGLE_CLIENT_ID']
     # client_secret = os.environ['GOOGLE_CLIENT_SECRET']
     # redirect_uri = os.environ['GOOGLE_REDIRECT_URI']
