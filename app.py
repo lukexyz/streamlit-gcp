@@ -1,10 +1,16 @@
 import streamlit as st
+import pandas as pd
+import altair as alt
+from collections import namedtuple
+import math
+
 import os
 import asyncio
 
 from SessionState import get
 from httpx_oauth.clients.google import GoogleOAuth2
 
+from config import *
 
 async def write_authorization_url(client,
                                   redirect_uri):
@@ -32,16 +38,53 @@ async def get_email(client,
 def main(user_id, user_email):
     st.write(f"You're logged in as {user_email}")
 
-    if user_email == 'Luke.D.Woods@gmail.com':
-        st.title('🤫')
+    if user_email.split('@')[1] == domain:
+        st.success('Login Successful')
+        st.title('Secret Algorithm 🤫 ')
+
+        # Altair showcase
+        with st.echo(code_location='below'):
+            total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
+            num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+            Point = namedtuple('Point', 'x y')
+            data = []
+            points_per_turn = total_points / num_turns
+            for curr_point_num in range(total_points):
+                curr_turn, i = divmod(curr_point_num, points_per_turn)
+                angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
+                radius = curr_point_num / total_points
+                x = radius * math.cos(angle)
+                y = radius * math.sin(angle)
+                data.append(Point(x, y))
+            st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
+                .mark_circle(color='#0068c9', opacity=0.5)
+                .encode(x='x:Q', y='y:Q'))
+
+            # Aarons refactor
+            Point = namedtuple('Point', 'x y')
+            data = [None] * total_points
+            points_per_turn = total_points / num_turns
+            baseAngle = 2 * math.pi / points_per_turn
+            baseRadius = 1 / total_points
+            for curr_point_num in range(total_points):
+                angle = curr_point_num * baseAngle
+                radius = curr_point_num * baseRadius
+                x = radius * math.cos(angle)
+                y = radius * math.sin(angle)
+                data[curr_point_num] = Point(x, y)
+            st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
+                .mark_circle(color='#0068c9', opacity=0.5)
+                .encode(x='x:Q', y='y:Q'))
 
     else:
-        st.text('No secrets for you')
+        st.error('Login Rejected')
+        st.text(f'No secrets for you, {user_email}.')
+
 
 if __name__ == '__main__':
-    client_id = os.environ['GOOGLE_CLIENT_ID']
-    client_secret = os.environ['GOOGLE_CLIENT_SECRET']
-    redirect_uri = os.environ['GOOGLE_REDIRECT_URI']
+    # client_id = os.environ['GOOGLE_CLIENT_ID']
+    # client_secret = os.environ['GOOGLE_CLIENT_SECRET']
+    # redirect_uri = os.environ['GOOGLE_REDIRECT_URI']
 
     client = GoogleOAuth2(client_id, client_secret)
     authorization_url = asyncio.run(

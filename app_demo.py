@@ -11,9 +11,11 @@ from session_state import get
 from httpx_oauth.clients.google import GoogleOAuth2
 
 # Oauth credentials
-client_id = os.environ['GOOGLE_CLIENT_ID']
-client_secret = os.environ['GOOGLE_CLIENT_SECRET']
-redirect_uri = os.environ['GOOGLE_REDIRECT_URI']
+# client_id = os.environ['GOOGLE_CLIENT_ID']
+# client_secret = os.environ['GOOGLE_CLIENT_SECRET']
+# redirect_uri = os.environ['GOOGLE_REDIRECT_URI']
+from secrets.creds import *
+
 
 client = GoogleOAuth2(client_id, client_secret)
 
