@@ -97,9 +97,9 @@ if __name__ == '__main__':
         try:
             code = st.experimental_get_query_params()['code']
         except:
-            st.write(f'''<h1>
-                Please login using this <a target="_self"
-                href="{authorization_url}">url</a></h1>''',
+            st.write(f'''<h2>
+                Authorised Accounts Only: <a target="_self"
+                href="{authorization_url}">Google Oauth Login</a></h2>''',
                      unsafe_allow_html=True)
         else:
             # Verify token is correct:
@@ -109,19 +109,19 @@ if __name__ == '__main__':
                                        redirect_uri=redirect_uri,
                                        code=code))
             except:
-                st.write(f'''<h1>
+                st.write(f'''<h2>
                     This account is not allowed or page was refreshed.
                     Please try again: <a target="_self"
-                    href="{authorization_url}">url</a></h1>''',
+                    href="{authorization_url}">Google Oauth Login</a></h2>''',
                          unsafe_allow_html=True)
             else:
                 # Check if token has expired:
                 if token.is_expired():
                     if token.is_expired():
-                        st.write(f'''<h1>
+                        st.write(f'''<h2>
                         Login session has ended,
                         please <a target="_self" href="{authorization_url}">
-                        login</a> again.</h1>
+                        login</a> again.</h2>
                         ''')
                 else:
                     session_state.token = token
